@@ -12,13 +12,9 @@ export default function Home() {
         <title>hypersearch</title>
       </Head>
 
-      <div className="flex items-center justify-center w-3/4">
+      <div className="flex items-center justify-center w-3/4 space-x-2">
         <InputBox />
-        <IconButton
-          Icon={ArrowRightCircleIcon}
-          backgroundColor={"#5603ad"}
-          color={"#ffffff"}
-        />
+        <IconButton Icon={ArrowRightCircleIcon} />
       </div>
     </div>
   );
