@@ -1,9 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 
 import InputBox from "../components/InputBox";
 import IconButton from "../components/IconButton";
-import Avatar from "../components/Avatar";
 
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
