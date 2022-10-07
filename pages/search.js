@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 import InputBox from "../components/InputBox";
 import IconButton from "../components/IconButton";
@@ -16,7 +17,6 @@ import Response from "../Response";
 
 function search({ results }) {
   const [inputBoxValue, setInputBoxValue] = useState("");
-
   const router = useRouter();
 
   const search = (e) => {
@@ -29,8 +29,12 @@ function search({ results }) {
 
   return (
     <form className="px-4 py-4">
-      {/* Header */}
-      <div className="flex items-center space-x-2 mb-4">
+      <div className="flex items-center space-x-2">
+        <Link href={"/"}>
+          <p className="font-semibold bg-black text-white px-4 py-2 rounded-lg cursor-pointer">
+            hypersearch
+          </p>
+        </Link>
         <InputBox value={inputBoxValue} setValue={setInputBoxValue} />
         <IconButton
           Icon={ArrowRightCircleIcon}
@@ -40,8 +44,11 @@ function search({ results }) {
         />
         <Avatar />
       </div>
+      <p className="text-xs text-gray-500 my-4">
+        About {results.searchInformation.formattedTotalResults} results in{" "}
+        {results.searchInformation.formattedSearchTime}s
+      </p>
 
-      {/* Results */}
       <div className="w-full columns-5 gap-x-4">
         {results?.items?.map((result) => (
           <ResultCard key={result.cacheId} result={result} />
