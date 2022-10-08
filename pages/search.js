@@ -51,12 +51,13 @@ export default function Search() {
         />
         <Avatar src={user?.photoURL} />
       </div>
+
       <p className="text-xs text-gray-500 my-4">
         {results
           ? `About ${
-              results.searchInformation.formattedTotalResults
+              results?.searchInformation?.formattedTotalResults
             } results in${" "}
-         ${results.searchInformation.formattedSearchTime}s `
+         ${results?.searchInformation?.formattedSearchTime}s `
           : `Loading...`}
       </p>
 
