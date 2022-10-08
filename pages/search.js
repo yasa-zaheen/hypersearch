@@ -1,31 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+import searchGoogle from "../functions/searchGoogle";
+
+import useAuthState from "../hooks/useAuthState";
 
 import InputBox from "../components/InputBox";
 import IconButton from "../components/IconButton";
 import Avatar from "../components/Avatar";
 import ResultCard from "../components/ResultCard";
+import ResultsSkeleton from "../components/ResultsSkeleton";
 
-import {
-  ArrowRightCircleIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
-import Response from "../Response";
-
-function search({ results }) {
+export default function search() {
+  const user = useAuthState();
+  const [results, setResults] = useState();
   const [inputBoxValue, setInputBoxValue] = useState("");
+
   const router = useRouter();
 
-  const search = (e) => {
-    e.preventDefault();
-
-    if (inputBoxValue === "") return;
-
-    router.push(`/search?q=${inputBoxValue}`);
-  };
+  useEffect(() => {
+    fetch(
+      `https://www.googleapis.com/customsearch/v1?q=${router.query.q}&key=${process.env.apiKey}&cx=${process.env.cx}`
+    ).then((res) => {
+      res.json().then((r) => {
+        setResults(r);
+      });
+    });
+  }, [router.query.q]);
 
   return (
     <form className="px-4 py-4">
@@ -40,33 +44,31 @@ function search({ results }) {
           Icon={ArrowRightCircleIcon}
           backgroundColor={"#5603ad"}
           color={"#ffffff"}
-          onClick={search}
+          onClick={(e) => {
+            searchGoogle(e, router, inputBoxValue, user);
+            setResults();
+          }}
         />
-        <Avatar />
+        <Avatar src={user?.photoURL} />
       </div>
       <p className="text-xs text-gray-500 my-4">
-        About {results.searchInformation.formattedTotalResults} results in{" "}
-        {results.searchInformation.formattedSearchTime}s
+        {results
+          ? `About ${
+              results.searchInformation.formattedTotalResults
+            } results in${" "}
+         ${results.searchInformation.formattedSearchTime}s `
+          : `Loading...`}
       </p>
 
-      <div className="w-full columns-5 gap-x-4">
-        {results?.items?.map((result) => (
-          <ResultCard key={result.cacheId} result={result} />
-        ))}
-      </div>
+      {results ? (
+        <div className="w-full columns-5 gap-x-4">
+          {results?.items?.map((result) => (
+            <ResultCard key={result.cacheId} result={result} />
+          ))}
+        </div>
+      ) : (
+        <ResultsSkeleton />
+      )}
     </form>
   );
-}
-
-export default search;
-
-export async function getServerSideProps(context) {
-  const response = await fetch(
-    `https://www.googleapis.com/customsearch/v1?q=${context.query.q}&key=${process.env.apiKey}&cx=${process.env.cx}`
-  );
-  const results = await response.json();
-
-  return {
-    props: { results: results },
-  };
 }
