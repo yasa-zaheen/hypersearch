@@ -7,12 +7,10 @@ function signInUser() {
 
   signInWithPopup(auth, provider)
     .then((results) => {
-      console.log(results.user);
-      console.log("User signed in");
+      const user = results.user;
       setDoc(doc(db, "users", user.uid), {}, { merge: true }).then(() => {});
     })
     .catch((error) => {
-      console.log("User not signed in");
       console.log(error);
     });
 }
