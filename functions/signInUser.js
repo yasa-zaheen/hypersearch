@@ -1,16 +1,18 @@
 import { auth, db } from "../firebase";
-import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 function signInUser() {
   const provider = new GoogleAuthProvider();
 
-  signInWithRedirect(auth, provider)
+  signInWithPopup(auth, provider)
     .then((results) => {
-      const user = results.user;
+      console.log(results.user);
+      console.log("User signed in");
       setDoc(doc(db, "users", user.uid), {}, { merge: true }).then(() => {});
     })
     .catch((error) => {
+      console.log("User not signed in");
       console.log(error);
     });
 }
