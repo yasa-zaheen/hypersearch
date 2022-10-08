@@ -14,7 +14,7 @@ import ResultsSkeleton from "../components/ResultsSkeleton";
 
 import { ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
-export default function search() {
+export default function Search() {
   const user = useAuthState();
   const [results, setResults] = useState();
   const [inputBoxValue, setInputBoxValue] = useState("");

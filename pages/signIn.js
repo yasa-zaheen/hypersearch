@@ -6,7 +6,7 @@ import TextButton from "../components/TextButton";
 import signInUser from "../functions/signInUser";
 import useAuthState from "../hooks/useAuthState";
 
-function signIn() {
+function SignIn() {
   const user = useAuthState();
   const router = useRouter();
 
@@ -28,4 +28,4 @@ function signIn() {
   );
 }
 
-export default signIn;
+export default SignIn;
