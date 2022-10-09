@@ -26,6 +26,11 @@ export default function Home() {
     <div className="px-4 py-4 h-screen w-full flex items-center justify-center">
       <Head>
         <title>hypersearch</title>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7299531318569051"
+          crossorigin="anonymous"
+        ></script>
       </Head>
 
       <div className="flex space-x-4 absolute top-4 right-4">

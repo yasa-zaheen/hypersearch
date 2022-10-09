@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 
 import searchGoogle from "../functions/searchGoogle";
 
@@ -33,6 +34,14 @@ export default function Search() {
 
   return (
     <form className="px-4 py-4">
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7299531318569051"
+          crossorigin="anonymous"
+        ></script>
+      </Head>
+
       <div className="flex items-center space-x-2">
         <Link href={"/"}>
           <p className="font-semibold bg-black text-white px-4 py-2 rounded-lg cursor-pointer">

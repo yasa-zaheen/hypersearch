@@ -16,6 +16,11 @@ function SignIn() {
     <div className="h-screen w-full flex flex-col items-center justify-center">
       <Head>
         <title>sign in</title>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7299531318569051"
+          crossorigin="anonymous"
+        ></script>
       </Head>
       <p className="text-3xl font-bold mb-4">welcome to hypersearch</p>
       <TextButton
